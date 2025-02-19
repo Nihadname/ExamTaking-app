@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import Register from './pages/Register';
 import MyResults from './pages/MyResults';
+import DetailedResults from './pages/DetailedResults';
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
               </Layout>
             </ProtectedRoute>
           } />
+          <Route path="/detailed-results/:examId" element={<DetailedResults />} />
         </Routes>
       </Router>
     </Provider>

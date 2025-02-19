@@ -21,7 +21,6 @@ function Register() {
   const [error, setError] = useState('');
 
   const handleRegister = () => {
-    // Get existing users from localStorage
     const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
     
     if (existingUsers.some((u: any) => u.email === email)) {

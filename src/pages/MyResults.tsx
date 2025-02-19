@@ -10,10 +10,12 @@ import {
   TableHead,
   TableRow,
   Chip,
-  Alert
+  Alert,
+  Button
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
+import { Link } from 'react-router-dom';
 
 function MyResults() {
   const { user } = useSelector((state: RootState) => state.auth);
@@ -49,6 +51,7 @@ function MyResults() {
               <TableCell>Score</TableCell>
               <TableCell>Time Spent</TableCell>
               <TableCell>Date</TableCell>
+              <TableCell>Details</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -71,6 +74,16 @@ function MyResults() {
                   </TableCell>
                   <TableCell>
                     {new Date(submission.submittedAt).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>
+                    <Button 
+                      component={Link} 
+                      to={`/detailed-results/${submission.examId}`} 
+                      variant="outlined" 
+                      color="primary"
+                    >
+                      View Details
+                    </Button>
                   </TableCell>
                 </TableRow>
               );
