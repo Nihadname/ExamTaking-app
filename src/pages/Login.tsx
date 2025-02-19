@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Paper,
   TextField,
   Button,
   Typography,
-  Alert
+  Alert,
+  Link
 } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setUser } from '../store/slices/authSlice';
 import { TEACHER_ACCOUNT } from '../constants/auth';
+import { RootState } from '../store';
 
 function Login() {
   const dispatch = useDispatch();
@@ -18,6 +20,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const user = useSelector((state: RootState) => state.auth.user);
 
   const handleLogin = () => {
     // Check for teacher account first
@@ -28,7 +31,6 @@ function Login() {
         name: TEACHER_ACCOUNT.name,
         role: TEACHER_ACCOUNT.role
       }));
-      navigate('/');
       return;
     }
 
@@ -38,11 +40,16 @@ function Login() {
     
     if (user) {
       dispatch(setUser({ id: user.id, email: user.email, role: user.role, name: user.name }));
-      navigate('/');
     } else {
       setError('Invalid email or password');
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, [user, navigate]);
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
@@ -73,9 +80,16 @@ function Login() {
           variant="contained"
           onClick={handleLogin}
           sx={{ mt: 3 }}
+          disabled={!email || !password}
         >
           Login
         </Button>
+
+        <Box sx={{ mt: 2, textAlign: 'center' }}>
+          <Link href="/register" underline="hover">
+            Don't have an account? Register
+          </Link>
+        </Box>
 
         <Typography sx={{ mt: 2, textAlign: 'center' }} color="textSecondary">
           Teacher Login: {TEACHER_ACCOUNT.email}

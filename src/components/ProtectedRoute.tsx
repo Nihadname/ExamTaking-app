@@ -1,24 +1,22 @@
+import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 
-interface ProtectedRouteProps {
-  children: React.ReactNode;
-  allowedRoles?: string[];
-}
+const ProtectedRoute = ({ children, allowedRoles }: { children: JSX.Element; allowedRoles?: string[] }) => {
+  const { user } = useSelector((state: RootState) => state.auth);
 
-function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
-  const { user, isAuthenticated } = useSelector((state: RootState) => state.auth);
-
-  if (!isAuthenticated) {
+  if (!user) {
+    // Not logged in, redirect to login
     return <Navigate to="/login" />;
   }
 
-  if (allowedRoles && !allowedRoles.includes(user?.role || '')) {
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
+    // User does not have permission, redirect to home or another page
     return <Navigate to="/" />;
   }
 
-  return <>{children}</>;
-}
+  return children; // User is allowed, render the children
+};
 
 export default ProtectedRoute; 

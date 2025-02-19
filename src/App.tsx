@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { store } from './store';
+import store from './store';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import ExamCreation from './pages/ExamCreation';
@@ -14,6 +14,7 @@ import MyResults from './pages/MyResults';
 import DetailedResults from './pages/DetailedResults';
 import Home from './pages/Home';
 import About from './pages/About';
+import ExamScheduler from './pages/ExamScheduler';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Home />} />
-          <Route path="/" element={
+          <Route path="/dashboard" element={
             <ProtectedRoute>
               <Layout>
                 <Dashboard />
@@ -60,6 +61,7 @@ function App() {
           } />
           <Route path="/detailed-results/:examId" element={<DetailedResults />} />
           <Route path="/about" element={<About />} />
+          <Route path="/schedule-exam" element={<ExamScheduler />} />
         </Routes>
       </Router>
     </Provider>

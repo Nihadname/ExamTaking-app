@@ -38,6 +38,9 @@ function Dashboard() {
           <Button variant="contained" color="primary" onClick={() => navigate('/create-exam')}>
             Create New Exam
           </Button>
+          <Button variant="contained" color="primary" onClick={() => navigate('/schedule-exam')}>
+            Schedule Exam
+          </Button>
         </Grid>
         
         {/* Teacher Stats */}

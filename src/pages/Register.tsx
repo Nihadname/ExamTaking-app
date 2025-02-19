@@ -33,7 +33,7 @@ function Register() {
       name,
       email,
       password,
-      role: 'student', // New users are always students
+      role: 'student' as 'teacher' | 'student',
     };
 
     // Save to localStorage

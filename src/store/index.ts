@@ -10,16 +10,19 @@ export interface ExamState {
   submissions: ExamSubmission[];
 }
 
-export interface RootState {
+// Define RootState only once
+export type RootState = {
   auth: ReturnType<typeof authReducer>;
   exam: ExamState;
-}
+};
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     auth: authReducer,
     exam: examReducer,
   },
 });
+
+export default store;
 
 export type AppDispatch = typeof store.dispatch; 
