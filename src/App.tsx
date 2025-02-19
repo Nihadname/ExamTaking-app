@@ -12,6 +12,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Register from './pages/Register';
 import MyResults from './pages/MyResults';
 import DetailedResults from './pages/DetailedResults';
+import Home from './pages/Home';
+import About from './pages/About';
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Home />} />
           <Route path="/" element={
             <ProtectedRoute>
               <Layout>
@@ -56,6 +59,7 @@ function App() {
             </ProtectedRoute>
           } />
           <Route path="/detailed-results/:examId" element={<DetailedResults />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </Router>
     </Provider>
