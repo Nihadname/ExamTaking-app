@@ -11,10 +11,6 @@ import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import Register from './pages/Register';
 import MyResults from './pages/MyResults';
-import DetailedResults from './pages/DetailedResults';
-import Home from './pages/Home';
-import About from './pages/About';
-import ExamScheduler from './pages/ExamScheduler';
 
 function App() {
   return (
@@ -22,7 +18,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Home />} />
+          
           <Route path="/dashboard" element={
             <ProtectedRoute>
               <Layout>
@@ -59,9 +55,6 @@ function App() {
               </Layout>
             </ProtectedRoute>
           } />
-          <Route path="/detailed-results/:examId" element={<DetailedResults />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/schedule-exam" element={<ExamScheduler />} />
         </Routes>
       </Router>
     </Provider>

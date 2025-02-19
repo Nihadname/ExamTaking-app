@@ -13,10 +13,9 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  CircularProgress,
-  Button
+  CircularProgress
 } from '@mui/material';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { CheckCircle, Cancel, Timer } from '@mui/icons-material';
@@ -147,10 +146,6 @@ function Results() {
           </TableBody>
         </Table>
       </TableContainer>
-
-      <Button component={Link} to={`/detailed-results/${examId}`} variant="contained" color="primary" sx={{ mt: 2 }}>
-        View Detailed Results
-      </Button>
     </Box>
   );
 }
