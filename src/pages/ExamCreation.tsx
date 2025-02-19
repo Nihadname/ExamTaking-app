@@ -25,7 +25,7 @@ import {
 import { Delete, Edit, Add, Save, CloudUpload } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Question } from '../types';
+import { Question, Exam } from '../types';
 import { setExams } from '../store/slices/examSlice';
 import { styled } from '@mui/material/styles';
 import { RootState } from '../store/index';
@@ -128,13 +128,18 @@ function ExamCreation() {
   };
 
   const handleSubmit = () => {
-    const newExam = {
+    const newExam: Exam = {
       id: Date.now().toString(),
       title,
       description,
       questions,
       createdBy: 'current-user-id',
-      duration
+      duration,
+      category: 'General', // Default values for new fields
+      tags: [],
+      difficulty: 'medium',
+      timeLimit: duration * 60,
+      passingScore: 60
     };
 
     dispatch(setExams([...existingExams, newExam]));

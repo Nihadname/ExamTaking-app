@@ -12,6 +12,11 @@ export interface Exam {
   questions: Question[];
   createdBy: string;
   duration: number; // in minutes
+  category: string;
+  tags: string[];
+  difficulty: 'easy' | 'medium' | 'hard';
+  timeLimit: number;
+  passingScore: number;
 }
 
 export interface Question {

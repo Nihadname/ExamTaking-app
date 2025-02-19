@@ -10,6 +10,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setUser } from '../store/slices/authSlice';
+import { TEACHER_ACCOUNT } from '../constants/auth';
 
 function Login() {
   const dispatch = useDispatch();
@@ -19,14 +20,21 @@ function Login() {
   const [error, setError] = useState('');
 
   const handleLogin = () => {
-    // Get teacher account
-    const teacherUser = { id: '1', email: 'teacher@example.com', password: 'teacher123', role: 'teacher' as const, name: 'Teacher' };
-    
-    // Get registered users from localStorage
-    const registeredUsers = JSON.parse(localStorage.getItem('users') || '[]');
-    const allUsers = [teacherUser, ...registeredUsers];
+    // Check for teacher account first
+    if (email === TEACHER_ACCOUNT.email && password === TEACHER_ACCOUNT.password) {
+      dispatch(setUser({
+        id: TEACHER_ACCOUNT.id,
+        email: TEACHER_ACCOUNT.email,
+        name: TEACHER_ACCOUNT.name,
+        role: TEACHER_ACCOUNT.role
+      }));
+      navigate('/');
+      return;
+    }
 
-    const user = allUsers.find(u => u.email === email && u.password === password);
+    // For regular student users
+    const registeredUsers = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = registeredUsers.find(u => u.email === email && u.password === password);
     
     if (user) {
       dispatch(setUser({ id: user.id, email: user.email, role: user.role, name: user.name }));
@@ -70,9 +78,9 @@ function Login() {
         </Button>
 
         <Typography sx={{ mt: 2, textAlign: 'center' }} color="textSecondary">
-          Teacher: teacher@example.com / teacher123
+          Teacher Login: {TEACHER_ACCOUNT.email}
           <br />
-          Student: student@example.com / student123
+          Password: {TEACHER_ACCOUNT.password}
         </Typography>
       </Paper>
     </Box>
